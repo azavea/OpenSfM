@@ -105,6 +105,9 @@ def get_xmp(fileobj):
 
     if xmp_start < xmp_end:
         xmp_str = img_str[xmp_start:xmp_end + 12]
+        # Allow for DJI formatted newlines.
+        xmp_str = xmp_str.replace('\\n', '\n')
+
         xdict = x2d.parse(xmp_str)
         xdict = xdict.get('x:xmpmeta', {})
         xdict = xdict.get('rdf:RDF', {})
